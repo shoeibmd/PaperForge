@@ -1,0 +1,24 @@
+# Target directories
+target/
+backend/target/
+frontend/dist/
+frontend/node_modules/
+
+# Build artifacts
+*.tsbuildinfo
+
+# IDE / OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Build & Logs
+*.log
+*.tmp
+temp/
+
+# Environment files
+.env
+.env.local
