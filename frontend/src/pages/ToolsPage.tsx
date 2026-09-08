@@ -1,4 +1,10 @@
-import { Title, Text, SimpleGrid, Card, Badge, Group } from '@mantine/core';
+import { useState } from 'react';
+import { Title, Text, SimpleGrid, Card, Badge, Group, Modal, UnstyledButton } from '@mantine/core';
+import { MergePdfTool } from '../components/tools/MergePdfTool';
+import { SplitPdfTool } from '../components/tools/SplitPdfTool';
+import { RotatePdfTool } from '../components/tools/RotatePdfTool';
+import { CropPdfTool } from '../components/tools/CropPdfTool';
+import { MetadataPdfTool } from '../components/tools/MetadataPdfTool';
 
 interface ToolItem {
   id: string;
@@ -6,47 +12,97 @@ interface ToolItem {
   category: string;
   description: string;
   phase: string;
+  active: boolean;
 }
 
 const toolsList: ToolItem[] = [
-  { id: 'merge', name: 'Merge PDFs', category: 'PDF Core', description: 'Combine multiple PDF documents into a single file.', phase: 'Phase 2' },
-  { id: 'split', name: 'Split PDF', category: 'PDF Core', description: 'Extract pages or split PDFs into separate documents.', phase: 'Phase 2' },
-  { id: 'compress', name: 'Compress PDF', category: 'PDF Core', description: 'Reduce document file size with customizable quality settings.', phase: 'Phase 7' },
-  { id: 'convert-office', name: 'Office to PDF', category: 'Conversion', description: 'Convert Word, Excel, and PowerPoint files to PDF.', phase: 'Phase 4' },
-  { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6' },
-  { id: 'protect', name: 'Password Protect', category: 'Security', description: 'Encrypt and secure PDF documents with passwords.', phase: 'Phase 3' },
+  { id: 'merge', name: 'Merge PDFs', category: 'PDF Core', description: 'Combine multiple PDF documents into a single file.', phase: 'Phase 2', active: true },
+  { id: 'split', name: 'Split PDF', category: 'PDF Core', description: 'Extract pages or split PDFs into separate documents.', phase: 'Phase 2', active: true },
+  { id: 'rotate', name: 'Rotate PDF', category: 'PDF Core', description: 'Rotate pages by 90, 180, or 270 degrees.', phase: 'Phase 2', active: true },
+  { id: 'crop', name: 'Crop PDF', category: 'PDF Core', description: 'Adjust document crop margins and page bounding boxes.', phase: 'Phase 2', active: true },
+  { id: 'metadata', name: 'Edit Metadata', category: 'PDF Core', description: 'View and update PDF title, author, subject, and keywords.', phase: 'Phase 2', active: true },
+  { id: 'compress', name: 'Compress PDF', category: 'PDF Core', description: 'Reduce document file size with customizable quality settings.', phase: 'Phase 7', active: false },
+  { id: 'convert-office', name: 'Office to PDF', category: 'Conversion', description: 'Convert Word, Excel, and PowerPoint files to PDF.', phase: 'Phase 4', active: false },
+  { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6', active: false },
 ];
 
 export function ToolsPage() {
+  const [activeToolId, setActiveToolId] = useState<string | null>(null);
+
+  const activeTool = toolsList.find((t) => t.id === activeToolId);
+
+  const renderToolComponent = () => {
+    switch (activeToolId) {
+      case 'merge':
+        return <MergePdfTool />;
+      case 'split':
+        return <SplitPdfTool />;
+      case 'rotate':
+        return <RotatePdfTool />;
+      case 'crop':
+        return <CropPdfTool />;
+      case 'metadata':
+        return <MetadataPdfTool />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div>
       <Title order={2} mb="xs">
         Document Tools
       </Title>
       <Text c="dimmed" mb="lg">
-        All document forge operations available in PaperForge.
+        All document forge operations available in PaperForge. Click any active tool to launch it.
       </Text>
 
       <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
         {toolsList.map((tool) => (
-          <Card key={tool.id} shadow="sm" padding="lg" radius="md" withBorder>
-            <Group justify="space-between" mb="xs">
-              <Badge color="blue" variant="light">
-                {tool.category}
-              </Badge>
-              <Badge color="gray" variant="outline" size="xs">
-                {tool.phase}
-              </Badge>
-            </Group>
-            <Text fw={600} size="lg" mt="xs">
-              {tool.name}
-            </Text>
-            <Text size="sm" c="dimmed" mt="xs">
-              {tool.description}
-            </Text>
-          </Card>
+          <UnstyledButton
+            key={tool.id}
+            onClick={() => tool.active && setActiveToolId(tool.id)}
+            style={{ cursor: tool.active ? 'pointer' : 'not-allowed' }}
+          >
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              withBorder
+              style={{
+                height: '100%',
+                opacity: tool.active ? 1 : 0.6,
+                borderColor: tool.active ? '#228be6' : undefined,
+              }}
+            >
+              <Group justify="space-between" mb="xs">
+                <Badge color={tool.active ? 'blue' : 'gray'} variant="light">
+                  {tool.category}
+                </Badge>
+                <Badge color={tool.active ? 'green' : 'gray'} variant="outline" size="xs">
+                  {tool.active ? 'Ready' : tool.phase}
+                </Badge>
+              </Group>
+              <Text fw={600} size="lg" mt="xs">
+                {tool.name}
+              </Text>
+              <Text size="sm" c="dimmed" mt="xs">
+                {tool.description}
+              </Text>
+            </Card>
+          </UnstyledButton>
         ))}
       </SimpleGrid>
+
+      <Modal
+        opened={!!activeToolId}
+        onClose={() => setActiveToolId(null)}
+        title={<Text fw={700}>{activeTool?.name}</Text>}
+        size="lg"
+        centered
+      >
+        {renderToolComponent()}
+      </Modal>
     </div>
   );
 }

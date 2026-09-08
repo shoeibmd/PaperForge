@@ -16,3 +16,12 @@ export interface ConfigResponse {
   defaultTheme: string;
   supportEmail: string;
 }
+
+export interface PdfMetadataDto {
+  title?: string;
+  author?: string;
+  subject?: string;
+  keywords?: string;
+  creator?: string;
+  producer?: string;
+}
