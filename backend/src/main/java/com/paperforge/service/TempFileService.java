@@ -3,6 +3,7 @@ package com.paperforge.service;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,11 +30,32 @@ public class TempFileService {
 
     public void deleteTempFile(File file) {
         if (file != null && file.exists()) {
+            secureZeroFile(file);
             try {
                 Files.deleteIfExists(file.toPath());
             } catch (IOException ignored) {
                 file.deleteOnExit();
             }
+        }
+    }
+
+    private void secureZeroFile(File file) {
+        try {
+            long length = file.length();
+            if (length > 0 && file.canWrite()) {
+                try (FileOutputStream fos = new FileOutputStream(file)) {
+                    byte[] zeros = new byte[(int) Math.min(length, 8192)];
+                    long remaining = length;
+                    while (remaining > 0) {
+                        int toWrite = (int) Math.min(zeros.length, remaining);
+                        fos.write(zeros, 0, toWrite);
+                        remaining -= toWrite;
+                    }
+                    fos.flush();
+                }
+            }
+        } catch (Exception ignored) {
+            // Ignore write exceptions during zeroing prior to unlink
         }
     }
 
