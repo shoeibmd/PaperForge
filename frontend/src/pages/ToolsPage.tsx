@@ -7,6 +7,8 @@ import { CropPdfTool } from '../components/tools/CropPdfTool';
 import { MetadataPdfTool } from '../components/tools/MetadataPdfTool';
 import { ProtectPdfTool } from '../components/tools/ProtectPdfTool';
 import { DecryptPdfTool } from '../components/tools/DecryptPdfTool';
+import { ConvertToPdfTool } from '../components/tools/ConvertToPdfTool';
+import { PdfToDocTool } from '../components/tools/PdfToDocTool';
 
 interface ToolItem {
   id: string;
@@ -25,8 +27,9 @@ const toolsList: ToolItem[] = [
   { id: 'metadata', name: 'Edit Metadata', category: 'PDF Core', description: 'View and update PDF title, author, subject, and keywords.', phase: 'Phase 2', active: true },
   { id: 'protect', name: 'Password Protect', category: 'Security', description: 'Encrypt PDFs and set printing/copying permission controls.', phase: 'Phase 3', active: true },
   { id: 'decrypt', name: 'Remove Password', category: 'Security', description: 'Unlock encrypted PDFs by removing password protection.', phase: 'Phase 3', active: true },
+  { id: 'convert-to-pdf', name: 'Convert to PDF', category: 'Conversion', description: 'Convert Word, Excel, PowerPoint, Text, and HTML to PDF.', phase: 'Phase 4', active: true },
+  { id: 'pdf-to-doc', name: 'PDF to Office/Text', category: 'Conversion', description: 'Export PDF documents to Word, Excel, PowerPoint, or Text.', phase: 'Phase 4', active: true },
   { id: 'compress', name: 'Compress PDF', category: 'PDF Core', description: 'Reduce document file size with customizable quality settings.', phase: 'Phase 7', active: false },
-  { id: 'convert-office', name: 'Office to PDF', category: 'Conversion', description: 'Convert Word, Excel, and PowerPoint files to PDF.', phase: 'Phase 4', active: false },
   { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6', active: false },
 ];
 
@@ -51,6 +54,10 @@ export function ToolsPage() {
         return <ProtectPdfTool />;
       case 'decrypt':
         return <DecryptPdfTool />;
+      case 'convert-to-pdf':
+        return <ConvertToPdfTool />;
+      case 'pdf-to-doc':
+        return <PdfToDocTool />;
       default:
         return null;
     }
