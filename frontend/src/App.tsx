@@ -1,22 +1,28 @@
-import { MantineProvider, Container, Title, Text, Card, Group } from '@mantine/core';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
+
+import { AppLayout } from './components/layout/AppLayout';
+import { DashboardPage } from './pages/DashboardPage';
+import { ToolsPage } from './pages/ToolsPage';
+import { SettingsPage } from './pages/SettingsPage';
+import { HelpPage } from './pages/HelpPage';
+import { AboutPage } from './pages/AboutPage';
 
 export function App() {
   return (
-    <MantineProvider>
-      <Container size="md" py="xl">
-        <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Group justify="space-between" mt="md" mb="xs">
-            <Title order={1}>PaperForge</Title>
-          </Group>
-          <Text size="lg" c="dimmed">
-            Forge your documents.
-          </Text>
-          <Text mt="sm" size="sm">
-            Welcome to PaperForge! Project structure initialized successfully.
-          </Text>
-        </Card>
-      </Container>
+    <MantineProvider defaultColorScheme="light">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="tools" element={<ToolsPage />} />
+            <Route path="settings" element={<SettingsPage />} />
+            <Route path="help" element={<HelpPage />} />
+            <Route path="about" element={<AboutPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </MantineProvider>
   );
 }
