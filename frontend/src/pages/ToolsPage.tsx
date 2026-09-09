@@ -9,6 +9,8 @@ import { ProtectPdfTool } from '../components/tools/ProtectPdfTool';
 import { DecryptPdfTool } from '../components/tools/DecryptPdfTool';
 import { ConvertToPdfTool } from '../components/tools/ConvertToPdfTool';
 import { PdfToDocTool } from '../components/tools/PdfToDocTool';
+import { ImageToPdfTool } from '../components/tools/ImageToPdfTool';
+import { PdfToImageTool } from '../components/tools/PdfToImageTool';
 
 interface ToolItem {
   id: string;
@@ -29,6 +31,8 @@ const toolsList: ToolItem[] = [
   { id: 'decrypt', name: 'Remove Password', category: 'Security', description: 'Unlock encrypted PDFs by removing password protection.', phase: 'Phase 3', active: true },
   { id: 'convert-to-pdf', name: 'Convert to PDF', category: 'Conversion', description: 'Convert Word, Excel, PowerPoint, Text, and HTML to PDF.', phase: 'Phase 4', active: true },
   { id: 'pdf-to-doc', name: 'PDF to Office/Text', category: 'Conversion', description: 'Export PDF documents to Word, Excel, PowerPoint, or Text.', phase: 'Phase 4', active: true },
+  { id: 'img-to-pdf', name: 'Images to PDF', category: 'Image Processing', description: 'Convert JPEG, PNG, WEBP, and TIFF images to PDF.', phase: 'Phase 5', active: true },
+  { id: 'pdf-to-img', name: 'PDF to Images', category: 'Image Processing', description: 'Render PDF pages into PNG, JPEG, WEBP, or TIFF images.', phase: 'Phase 5', active: true },
   { id: 'compress', name: 'Compress PDF', category: 'PDF Core', description: 'Reduce document file size with customizable quality settings.', phase: 'Phase 7', active: false },
   { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6', active: false },
 ];
@@ -58,6 +62,10 @@ export function ToolsPage() {
         return <ConvertToPdfTool />;
       case 'pdf-to-doc':
         return <PdfToDocTool />;
+      case 'img-to-pdf':
+        return <ImageToPdfTool opened={true} onClose={() => setActiveToolId(null)} />;
+      case 'pdf-to-img':
+        return <PdfToImageTool opened={true} onClose={() => setActiveToolId(null)} />;
       default:
         return null;
     }
