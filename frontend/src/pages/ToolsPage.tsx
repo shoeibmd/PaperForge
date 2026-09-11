@@ -11,6 +11,7 @@ import { ConvertToPdfTool } from '../components/tools/ConvertToPdfTool';
 import { PdfToDocTool } from '../components/tools/PdfToDocTool';
 import { ImageToPdfTool } from '../components/tools/ImageToPdfTool';
 import { PdfToImageTool } from '../components/tools/PdfToImageTool';
+import { OcrTool } from '../components/tools/OcrTool';
 
 interface ToolItem {
   id: string;
@@ -33,8 +34,8 @@ const toolsList: ToolItem[] = [
   { id: 'pdf-to-doc', name: 'PDF to Office/Text', category: 'Conversion', description: 'Export PDF documents to Word, Excel, PowerPoint, or Text.', phase: 'Phase 4', active: true },
   { id: 'img-to-pdf', name: 'Images to PDF', category: 'Image Processing', description: 'Convert JPEG, PNG, WEBP, and TIFF images to PDF.', phase: 'Phase 5', active: true },
   { id: 'pdf-to-img', name: 'PDF to Images', category: 'Image Processing', description: 'Render PDF pages into PNG, JPEG, WEBP, or TIFF images.', phase: 'Phase 5', active: true },
+  { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6', active: true },
   { id: 'compress', name: 'Compress PDF', category: 'PDF Core', description: 'Reduce document file size with customizable quality settings.', phase: 'Phase 7', active: false },
-  { id: 'ocr', name: 'OCR Text Recognition', category: 'OCR', description: 'Extract searchable text from scanned PDFs and images.', phase: 'Phase 6', active: false },
 ];
 
 export function ToolsPage() {
@@ -66,6 +67,8 @@ export function ToolsPage() {
         return <ImageToPdfTool opened={true} onClose={() => setActiveToolId(null)} />;
       case 'pdf-to-img':
         return <PdfToImageTool opened={true} onClose={() => setActiveToolId(null)} />;
+      case 'ocr':
+        return <OcrTool opened={true} onClose={() => setActiveToolId(null)} />;
       default:
         return null;
     }
