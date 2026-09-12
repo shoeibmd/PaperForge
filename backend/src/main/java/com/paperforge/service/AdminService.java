@@ -1,5 +1,6 @@
 package com.paperforge.service;
 
+import com.paperforge.config.ResourceLimitsConfig;
 import com.paperforge.dto.RegisterRequestDto;
 import com.paperforge.dto.UserManagementDto;
 import com.paperforge.model.Role;
@@ -24,15 +25,18 @@ public class AdminService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuditLogService auditLogService;
+    private final ResourceLimitsConfig resourceLimitsConfig;
 
     @Value("${PAPERFORGE_ADMIN_USERNAME:admin}")
     private String defaultAdminUsername;
 
-    public AdminService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AuditLogService auditLogService) {
+    public AdminService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
+                        AuditLogService auditLogService, ResourceLimitsConfig resourceLimitsConfig) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.auditLogService = auditLogService;
+        this.resourceLimitsConfig = resourceLimitsConfig;
     }
 
     public List<UserManagementDto> getAllUsers() {
@@ -49,6 +53,8 @@ public class AdminService {
         }
 
         User user = new User(request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()));
+        user.setStorageQuotaBytes(resourceLimitsConfig.getDefaultUserQuotaBytes());
+
         Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));
 

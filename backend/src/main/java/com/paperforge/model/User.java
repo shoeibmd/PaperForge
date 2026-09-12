@@ -6,7 +6,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(
+        name = "users",
+        indexes = {
+                @Index(name = "idx_users_username", columnList = "username"),
+                @Index(name = "idx_users_email", columnList = "email"),
+                @Index(name = "idx_users_enabled", columnList = "enabled"),
+                @Index(name = "idx_users_created_at", columnList = "created_at")
+        }
+)
 public class User {
 
     @Id
@@ -25,7 +33,7 @@ public class User {
     private boolean enabled = true;
 
     @Column(name = "storage_quota_bytes")
-    private Long storageQuotaBytes = 524288000L; // Default 500 MB quota
+    private Long storageQuotaBytes;
 
     @Column(name = "force_logged_out_at")
     private LocalDateTime forceLoggedOutAt;

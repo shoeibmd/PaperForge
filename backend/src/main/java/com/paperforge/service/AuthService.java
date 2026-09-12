@@ -1,5 +1,6 @@
 package com.paperforge.service;
 
+import com.paperforge.config.ResourceLimitsConfig;
 import com.paperforge.dto.AuthRequestDto;
 import com.paperforge.dto.AuthResponseDto;
 import com.paperforge.dto.RegisterRequestDto;
@@ -33,15 +34,18 @@ public class AuthService implements UserDetailsService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
     private final AuditLogService auditLogService;
+    private final ResourceLimitsConfig resourceLimitsConfig;
 
     public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, AuditLogService auditLogService) {
+                       JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager,
+                       AuditLogService auditLogService, ResourceLimitsConfig resourceLimitsConfig) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
         this.auditLogService = auditLogService;
+        this.resourceLimitsConfig = resourceLimitsConfig;
     }
 
     @Override
@@ -72,6 +76,7 @@ public class AuthService implements UserDetailsService {
         }
 
         User user = new User(request.getUsername(), request.getEmail(), passwordEncoder.encode(request.getPassword()));
+        user.setStorageQuotaBytes(resourceLimitsConfig.getDefaultUserQuotaBytes());
 
         Role userRole = roleRepository.findByName("ROLE_USER")
                 .orElseGet(() -> roleRepository.save(new Role("ROLE_USER")));

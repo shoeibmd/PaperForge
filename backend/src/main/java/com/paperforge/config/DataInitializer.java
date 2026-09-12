@@ -21,6 +21,7 @@ public class DataInitializer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ResourceLimitsConfig resourceLimitsConfig;
 
     @Value("${PAPERFORGE_ADMIN_USERNAME:admin}")
     private String adminUsername;
@@ -31,10 +32,12 @@ public class DataInitializer implements CommandLineRunner {
     @Value("${PAPERFORGE_ADMIN_EMAIL:admin@paperforge.local}")
     private String adminEmail;
 
-    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public DataInitializer(UserRepository userRepository, RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder, ResourceLimitsConfig resourceLimitsConfig) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.resourceLimitsConfig = resourceLimitsConfig;
     }
 
     @Override
@@ -47,6 +50,7 @@ public class DataInitializer implements CommandLineRunner {
 
         if (!userRepository.existsByUsername(adminUsername)) {
             User admin = new User(adminUsername, adminEmail, passwordEncoder.encode(adminPassword));
+            admin.setStorageQuotaBytes(resourceLimitsConfig.getDefaultUserQuotaBytes());
             admin.setRoles(Set.of(adminRole));
             userRepository.save(admin);
             logger.info("Created default PaperForge admin account: {}", adminUsername);

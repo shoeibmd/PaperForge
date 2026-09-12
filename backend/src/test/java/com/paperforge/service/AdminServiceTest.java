@@ -30,8 +30,10 @@ class AdminServiceTest {
         roleRepository = mock(RoleRepository.class);
         passwordEncoder = mock(PasswordEncoder.class);
         auditLogService = mock(AuditLogService.class);
+        com.paperforge.config.ResourceLimitsConfig resourceLimitsConfig = mock(com.paperforge.config.ResourceLimitsConfig.class);
+        when(resourceLimitsConfig.getDefaultUserQuotaBytes()).thenReturn(524288000L);
 
-        adminService = new AdminService(userRepository, roleRepository, passwordEncoder, auditLogService);
+        adminService = new AdminService(userRepository, roleRepository, passwordEncoder, auditLogService, resourceLimitsConfig);
     }
 
     @Test

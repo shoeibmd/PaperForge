@@ -39,8 +39,10 @@ class AuthServiceTest {
         jwtTokenProvider = mock(JwtTokenProvider.class);
         authenticationManager = mock(AuthenticationManager.class);
         auditLogService = mock(AuditLogService.class);
+        com.paperforge.config.ResourceLimitsConfig resourceLimitsConfig = mock(com.paperforge.config.ResourceLimitsConfig.class);
+        when(resourceLimitsConfig.getDefaultUserQuotaBytes()).thenReturn(524288000L);
 
-        authService = new AuthService(userRepository, roleRepository, passwordEncoder, jwtTokenProvider, authenticationManager, auditLogService);
+        authService = new AuthService(userRepository, roleRepository, passwordEncoder, jwtTokenProvider, authenticationManager, auditLogService, resourceLimitsConfig);
     }
 
     @Test
