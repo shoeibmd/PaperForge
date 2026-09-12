@@ -1,5 +1,7 @@
-import { Group, Title, ActionIcon, useMantineColorScheme, Badge } from '@mantine/core';
-import { IconSun, IconMoon, IconFileTypePdf } from '@tabler/icons-react';
+import { Group, Title, ActionIcon, useMantineColorScheme, Badge, Button, Menu, Avatar, Text } from '@mantine/core';
+import { IconSun, IconMoon, IconFileTypePdf, IconUser, IconLogout, IconLogin } from '@tabler/icons-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 interface HeaderProps {
   healthStatus: string;
@@ -8,6 +10,13 @@ interface HeaderProps {
 export function Header({ healthStatus }: HeaderProps) {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <Group justify="space-between" h="100%" px="md">
@@ -35,6 +44,27 @@ export function Header({ healthStatus }: HeaderProps) {
         >
           {dark ? <IconSun size={18} /> : <IconMoon size={18} />}
         </ActionIcon>
+
+        {isAuthenticated && user ? (
+          <Menu shadow="md" width={200} position="bottom-end">
+            <Menu.Target>
+              <Button variant="subtle" leftSection={<Avatar color="blue" radius="xl" size="sm"><IconUser size={14} /></Avatar>}>
+                <Text size="sm" fw={500}>{user.username}</Text>
+              </Button>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Label>Signed in as {user.username}</Menu.Label>
+              <Menu.Item leftSection={<IconLogout size={14} />} color="red" onClick={handleLogout}>
+                Logout
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+        ) : (
+          <Button component={Link} to="/login" variant="light" size="xs" leftSection={<IconLogin size={14} />}>
+            Sign In
+          </Button>
+        )}
       </Group>
     </Group>
   );
