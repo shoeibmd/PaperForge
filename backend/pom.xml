@@ -92,6 +92,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+        <!-- AWS S3 v2 SDK -->
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3</artifactId>
+            <version>2.25.15</version>
+        </dependency>
+
         <!-- TwelveMonkeys ImageIO Plugins (WEBP & TIFF Support) -->
         <dependency>
             <groupId>com.twelvemonkeys.imageio</groupId>

@@ -23,6 +23,15 @@ paperforge:
   default-user-quota-bytes: ${PAPERFORGE_DEFAULT_USER_QUOTA_BYTES:524288000} # Default 500 MB per user
   max-concurrent-jobs: ${PAPERFORGE_MAX_CONCURRENT_JOBS:10}
   job-timeout-seconds: ${PAPERFORGE_JOB_TIMEOUT_SECONDS:120}
+  storage:
+    type: ${PAPERFORGE_STORAGE_TYPE:LOCAL} # LOCAL or S3
+    local-path: ${PAPERFORGE_STORAGE_PATH:/tmp/paperforge-storage}
+    s3:
+      bucket: ${PAPERFORGE_S3_BUCKET:paperforge-storage}
+      region: ${PAPERFORGE_S3_REGION:us-east-1}
+      endpoint: ${PAPERFORGE_S3_ENDPOINT:}
+      access-key: ${PAPERFORGE_S3_ACCESS_KEY:}
+      secret-key: ${PAPERFORGE_S3_SECRET_KEY:}
   jwt:
     secret: ${PAPERFORGE_JWT_SECRET:PaperForgeDefaultSecretKeyMustBeAtLeast32BytesLongForHS256Security}
     expiration-ms: ${PAPERFORGE_JWT_EXPIRATION_MS:900000}
