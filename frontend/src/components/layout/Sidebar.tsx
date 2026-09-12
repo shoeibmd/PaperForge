@@ -3,6 +3,7 @@ import { NavLink as MantineNavLink, Stack } from '@mantine/core';
 import {
   IconLayoutDashboard,
   IconTools,
+  IconEdit,
   IconSettings,
   IconHelp,
   IconInfoCircle,
@@ -11,6 +12,7 @@ import {
 const navItems = [
   { path: '/', label: 'Dashboard', icon: IconLayoutDashboard },
   { path: '/tools', label: 'Tools', icon: IconTools },
+  { path: '/editor', label: 'PDF Editor', icon: IconEdit },
   { path: '/settings', label: 'Settings', icon: IconSettings },
   { path: '/help', label: 'Help & Docs', icon: IconHelp },
   { path: '/about', label: 'About', icon: IconInfoCircle },
