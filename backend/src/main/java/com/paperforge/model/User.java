@@ -24,6 +24,12 @@ public class User {
 
     private boolean enabled = true;
 
+    @Column(name = "storage_quota_bytes")
+    private Long storageQuotaBytes = 524288000L; // Default 500 MB quota
+
+    @Column(name = "force_logged_out_at")
+    private LocalDateTime forceLoggedOutAt;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -43,59 +49,30 @@ public class User {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getEmail() {
-        return email;
-    }
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public Long getStorageQuotaBytes() { return storageQuotaBytes; }
+    public void setStorageQuotaBytes(Long storageQuotaBytes) { this.storageQuotaBytes = storageQuotaBytes; }
 
-    public String getPassword() {
-        return password;
-    }
+    public LocalDateTime getForceLoggedOutAt() { return forceLoggedOutAt; }
+    public void setForceLoggedOutAt(LocalDateTime forceLoggedOutAt) { this.forceLoggedOutAt = forceLoggedOutAt; }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+    public Set<Role> getRoles() { return roles; }
+    public void setRoles(Set<Role> roles) { this.roles = roles; }
 }
