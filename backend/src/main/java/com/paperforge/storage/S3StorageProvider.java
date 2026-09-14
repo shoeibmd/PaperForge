@@ -48,8 +48,21 @@ public class S3StorageProvider implements StorageProvider {
     }
 
     private String buildS3Key(StorageCategory category, String relativePath) {
-        String sanitized = FilenameSanitizer.sanitizeFilename(relativePath);
-        return category.getFolderName() + "/" + sanitized;
+        if (relativePath == null || relativePath.isBlank()) {
+            return category.getFolderName() + "/";
+        }
+        String[] parts = relativePath.split("[/\\\\]");
+        List<String> sanitizedParts = new ArrayList<>();
+        for (String part : parts) {
+            if (part == null || part.isBlank() || ".".equals(part)) {
+                continue;
+            }
+            if ("..".equals(part)) {
+                throw new SecurityException("Path traversal sequence '..' detected in S3StorageProvider: " + relativePath);
+            }
+            sanitizedParts.add(FilenameSanitizer.sanitizeFilename(part));
+        }
+        return category.getFolderName() + "/" + String.join("/", sanitizedParts);
     }
 
     @Override

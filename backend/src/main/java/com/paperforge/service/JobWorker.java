@@ -26,11 +26,28 @@ public class JobWorker {
     private final JobService jobService;
     private final StorageProvider storageProvider;
     private final TempFileService tempFileService;
+    private final PdfCoreEngine pdfCoreEngine;
+    private final ConversionEngine conversionEngine;
+    private final OcrEngine ocrEngine;
+    private final CompressionEngine compressionEngine;
 
-    public JobWorker(JobService jobService, StorageProvider storageProvider, TempFileService tempFileService) {
+    public JobWorker(JobService jobService, StorageProvider storageProvider, TempFileService tempFileService,
+                     PdfCoreEngine pdfCoreEngine, ConversionEngine conversionEngine,
+                     OcrEngine ocrEngine, CompressionEngine compressionEngine) {
         this.jobService = jobService;
         this.storageProvider = storageProvider;
         this.tempFileService = tempFileService;
+        this.pdfCoreEngine = pdfCoreEngine;
+        this.conversionEngine = conversionEngine;
+        this.ocrEngine = ocrEngine;
+        this.compressionEngine = compressionEngine;
+    }
+
+    private String getExtension(String filename) {
+        if (filename != null && filename.contains(".")) {
+            return filename.substring(filename.lastIndexOf('.'));
+        }
+        return ".txt";
     }
 
     @Async
@@ -51,11 +68,30 @@ public class JobWorker {
 
             tempOutput = tempFileService.createTempFile("job_out", ".pdf");
 
-            // Perform processing work according to job type
-            jobService.updateJobProgress(jobId, JobStatus.PROCESSING, 50, null, null);
+            // Route job execution to engine based on jobType
+            String jobTypeUpper = jobDto.getJobType() != null ? jobDto.getJobType().toUpperCase() : "CONVERT";
+            jobService.updateJobProgress(jobId, JobStatus.PROCESSING, 30, null, null);
 
-            // Output simulated processed document
-            Files.write(tempOutput.toPath(), Files.readAllBytes(tempInput.toPath()));
+            if (jobTypeUpper.contains("OCR")) {
+                com.paperforge.dto.OcrRequestDto ocrReq = new com.paperforge.dto.OcrRequestDto();
+                ocrEngine.generateSearchablePdf(tempInput, ocrReq, tempOutput, (prefix, suffix) -> {
+                    try {
+                        return tempFileService.createTempFile(prefix, suffix);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            } else if (jobTypeUpper.contains("COMPRESS")) {
+                com.paperforge.dto.CompressionRequestDto compressReq = new com.paperforge.dto.CompressionRequestDto("BALANCED", 150, 0.7f, true, true);
+                compressionEngine.compressPdf(tempInput, compressReq, tempOutput);
+            } else if (jobTypeUpper.contains("CONVERT")) {
+                conversionEngine.convertToPdf(tempInput, getExtension(jobDto.getInputFilename()), tempOutput, tempFileService.getTempDir());
+            } else {
+                // Default: PDF core pass-through or merge
+                Files.copy(tempInput.toPath(), tempOutput.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+
+            jobService.updateJobProgress(jobId, JobStatus.PROCESSING, 80, null, null);
 
             String outputFilename = "processed_" + jobDto.getInputFilename();
             if (!outputFilename.endsWith(".pdf")) {

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 @Component
+@org.springframework.context.annotation.Primary
 public class LocalStorageProvider implements StorageProvider {
 
     private final Path rootStoragePath;
@@ -28,10 +29,25 @@ public class LocalStorageProvider implements StorageProvider {
     }
 
     private Path resolveSanitizedPath(StorageCategory category, String relativePath) {
-        String sanitized = FilenameSanitizer.sanitizeFilename(relativePath);
         Path categoryDir = rootStoragePath.resolve(category.getFolderName()).normalize();
-        Path targetPath = categoryDir.resolve(sanitized).normalize();
+        if (relativePath == null || relativePath.isBlank()) {
+            return categoryDir;
+        }
 
+        String[] parts = relativePath.split("[/\\\\]");
+        Path current = categoryDir;
+        for (String part : parts) {
+            if (part == null || part.isBlank() || ".".equals(part)) {
+                continue;
+            }
+            if ("..".equals(part)) {
+                throw new SecurityException("Path traversal sequence '..' detected in LocalStorageProvider: " + relativePath);
+            }
+            String sanitizedPart = FilenameSanitizer.sanitizeFilename(part);
+            current = current.resolve(sanitizedPart);
+        }
+
+        Path targetPath = current.normalize();
         if (!targetPath.startsWith(categoryDir)) {
             throw new SecurityException("Path traversal attempt blocked in LocalStorageProvider: " + relativePath);
         }
