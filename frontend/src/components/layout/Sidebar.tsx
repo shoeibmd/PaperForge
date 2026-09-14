@@ -19,6 +19,7 @@ const navItems = [
   { path: '/pipelines', label: 'Pipeline Builder', icon: IconGitFork },
   { path: '/api-keys', label: 'API Keys', icon: IconKey },
   { path: '/admin', label: 'Admin Studio', icon: IconUserShield },
+  { path: '/admin/audit-logs', label: 'Audit Logs', icon: IconHelp },
   { path: '/settings', label: 'Settings', icon: IconSettings },
   { path: '/help', label: 'Help & Docs', icon: IconHelp },
   { path: '/about', label: 'About', icon: IconInfoCircle },

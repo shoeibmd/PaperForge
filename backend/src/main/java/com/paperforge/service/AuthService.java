@@ -88,7 +88,7 @@ public class AuthService implements UserDetailsService {
 
         userRepository.save(user);
 
-        auditLogService.logSecurityEvent("USER_REGISTER", clientIp, "username=" + user.getUsername());
+        auditLogService.logEvent(com.paperforge.model.AuditEventType.USER_CREATED, user.getUsername(), clientIp, null, String.valueOf(user.getId()), "User registered", true);
 
         UserDetails userDetails = loadUserByUsername(user.getUsername());
         String token = jwtTokenProvider.generateToken(userDetails);
@@ -108,7 +108,7 @@ public class AuthService implements UserDetailsService {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + request.getUsername()));
 
-        auditLogService.logSecurityEvent("USER_LOGIN", clientIp, "username=" + user.getUsername());
+        auditLogService.logEvent(com.paperforge.model.AuditEventType.LOGIN, user.getUsername(), clientIp, null, String.valueOf(user.getId()), "User login successful", true);
 
         Set<String> roleNames = user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
         return new AuthResponseDto(token, user.getUsername(), user.getEmail(), roleNames);
