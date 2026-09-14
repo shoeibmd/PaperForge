@@ -22,7 +22,7 @@ export function LoginPage() {
     try {
       const resp = await authApi.login({ username, password });
       login(resp);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err: any) {
       setError(err.message || 'Invalid credentials');
     } finally {

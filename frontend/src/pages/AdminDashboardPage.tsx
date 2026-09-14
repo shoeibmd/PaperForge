@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Title, Text, Tabs } from '@mantine/core';
 import { IconUsers, IconActivity, IconDatabase, IconShieldCheck } from '@tabler/icons-react';
 import { UserManagementTable } from '../components/admin/UserManagementTable';
+import { JobsOverview } from '../components/admin/JobsOverview';
 
 export function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState<string | null>('users');
@@ -40,7 +41,7 @@ export function AdminDashboardPage() {
         </Tabs.Panel>
 
         <Tabs.Panel value="jobs">
-          <Text c="dimmed" size="sm">Active document conversion and OCR background processing job queues.</Text>
+          <JobsOverview />
         </Tabs.Panel>
 
         <Tabs.Panel value="audit">

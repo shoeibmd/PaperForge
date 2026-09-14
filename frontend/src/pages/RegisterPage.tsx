@@ -23,7 +23,7 @@ export function RegisterPage() {
     try {
       const resp = await authApi.register({ username, email, password });
       login(resp);
-      navigate('/dashboard');
+      navigate('/');
     } catch (err: any) {
       setError(err.message || 'Registration failed');
     } finally {
