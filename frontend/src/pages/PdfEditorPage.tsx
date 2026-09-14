@@ -61,7 +61,7 @@ export function PdfEditorPage() {
   };
 
   const updateDocumentBytes = async (newBytes: Uint8Array) => {
-    const buffer = newBytes.buffer.slice(newBytes.byteOffset, newBytes.byteOffset + newBytes.byteLength);
+    const buffer = newBytes.buffer.slice(newBytes.byteOffset, newBytes.byteOffset + newBytes.byteLength) as ArrayBuffer;
     const pdfDoc = await PDFDocument.load(buffer);
     const count = pdfDoc.getPageCount();
 
@@ -133,7 +133,8 @@ export function PdfEditorPage() {
       for (const [pageIdxStr, pageAnns] of Object.entries(annotations)) {
         const pageIdx = parseInt(pageIdxStr, 10);
         for (const ann of pageAnns) {
-          currentBytes = (await pdfLibService.addTextAnnotation(currentBytes, pageIdx, ann)).buffer;
+          const res = await pdfLibService.addTextAnnotation(currentBytes, pageIdx, ann);
+          currentBytes = res.buffer.slice(res.byteOffset, res.byteOffset + res.byteLength) as ArrayBuffer;
         }
       }
 

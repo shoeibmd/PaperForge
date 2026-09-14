@@ -1,4 +1,4 @@
-import { Title, Text, Accordion, Card } from '@mantine/core';
+import { Title, Text, Accordion, Card, Group, Button } from '@mantine/core';
 
 export function HelpPage() {
   return (
@@ -9,6 +9,18 @@ export function HelpPage() {
       <Text c="dimmed" mb="lg">
         Frequently asked questions and guides for PaperForge.
       </Text>
+
+      <Card shadow="sm" padding="md" radius="md" withBorder mb="lg">
+        <Group justify="space-between">
+          <div>
+            <Text fw={600}>Interactive OpenAPI 3.0 Documentation</Text>
+            <Text size="xs" c="dimmed">Explore and test all PaperForge REST API endpoints via Swagger UI.</Text>
+          </div>
+          <Button component="a" href="http://localhost:8080/swagger-ui/index.html" target="_blank" variant="light" size="xs">
+            Open Swagger UI
+          </Button>
+        </Group>
+      </Card>
 
       <Card shadow="sm" padding="lg" radius="md" withBorder>
         <Accordion variant="separated">

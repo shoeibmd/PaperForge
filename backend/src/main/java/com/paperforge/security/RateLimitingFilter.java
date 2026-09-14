@@ -37,7 +37,13 @@ public class RateLimitingFilter implements Filter {
         String clientIp = httpRequest.getRemoteAddr();
         Bucket bucket = buckets.computeIfAbsent(clientIp, k -> createNewBucket());
 
-        if (bucket.tryConsume(1)) {
+        io.github.bucket4j.ConsumptionProbe probe = bucket.tryConsumeAndReturnRemaining(1);
+
+        httpResponse.setHeader("X-RateLimit-Limit", "120");
+        httpResponse.setHeader("X-RateLimit-Remaining", String.valueOf(probe.getRemainingTokens()));
+        httpResponse.setHeader("X-RateLimit-Reset", String.valueOf(probe.getNanosToWaitForRefill() / 1_000_000_000L));
+
+        if (probe.isConsumed()) {
             chain.doFilter(request, response);
         } else {
             httpResponse.setStatus(429);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Badge, Group, ActionIcon, Tooltip, Alert, TextInput } from '@mantine/core';
-import { IconCheck, IconX, IconTrash, IconLock, IconShieldAlert, IconSearch } from '@tabler/icons-react';
+import { IconCheck, IconX, IconTrash, IconLock, IconShield, IconSearch } from '@tabler/icons-react';
 import { adminApi, UserManagement } from '../../services/adminApi';
 import { useAuth } from '../../context/AuthContext';
 
@@ -128,7 +128,7 @@ export const UserManagementTable: React.FC = () => {
 
                   <Tooltip label="Toggle Admin Role">
                     <ActionIcon variant="subtle" color="blue" onClick={() => handleToggleRole(u)}>
-                      <IconShieldAlert size={16} />
+                      <IconShield size={16} />
                     </ActionIcon>
                   </Tooltip>
 

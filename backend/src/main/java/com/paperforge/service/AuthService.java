@@ -37,7 +37,8 @@ public class AuthService implements UserDetailsService {
     private final ResourceLimitsConfig resourceLimitsConfig;
 
     public AuthService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,
-                       JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager,
+                       JwtTokenProvider jwtTokenProvider,
+                       @org.springframework.context.annotation.Lazy AuthenticationManager authenticationManager,
                        AuditLogService auditLogService, ResourceLimitsConfig resourceLimitsConfig) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;

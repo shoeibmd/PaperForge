@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Title, Text, Button, TextInput, Textarea, Card, Group, Stack, Badge, Select, ActionIcon, Alert, Table } from '@mantine/core';
-import { IconPlus, IconTrash, IconArrowUp, IconArrowDown, IconAlertCircle, IconArrowRight } from '@tabler/icons-react';
+import { IconTrash, IconAlertCircle, IconArrowRight } from '@tabler/icons-react';
 import { pipelineApi, ToolMetadata, Pipeline } from '../services/pipelineApi';
 import { useAuth } from '../context/AuthContext';
 
@@ -68,18 +68,6 @@ export function PipelinesPage() {
     const newSteps = selectedSteps.filter((_, i) => i !== idx);
     setSelectedSteps(newSteps);
     validateChain(newSteps);
-  };
-
-  const handleMoveStep = (idx: number, direction: 'up' | 'down') => {
-    const newSteps = [...selectedSteps];
-    const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
-    if (targetIdx >= 0 && targetIdx < newSteps.length) {
-      const temp = newSteps[idx];
-      newSteps[idx] = newSteps[targetIdx];
-      newSteps[targetIdx] = temp;
-      setSelectedSteps(newSteps);
-      validateChain(newSteps);
-    }
   };
 
   const handleCreatePipeline = async () => {

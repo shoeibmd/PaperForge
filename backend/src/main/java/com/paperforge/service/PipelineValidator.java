@@ -28,8 +28,9 @@ public class PipelineValidator {
             PipelineStep step = steps.get(i);
             String toolId = step.getToolId();
 
+            final int stepNumber = i + 1;
             ToolMetadata tool = toolRegistry.getTool(toolId)
-                    .orElseThrow(() -> new IllegalArgumentException("Invalid or unregistered tool ID at step " + (i + 1) + ": " + toolId));
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid or unregistered tool ID at step " + stepNumber + ": " + toolId));
 
             if (i == 0) {
                 currentFileType = tool.getProduces();
