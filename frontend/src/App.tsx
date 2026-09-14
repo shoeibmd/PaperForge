@@ -9,6 +9,7 @@ import { ToolsPage } from './pages/ToolsPage';
 import { PdfEditorPage } from './pages/PdfEditorPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 import { PipelinesPage } from './pages/PipelinesPage';
+import { ApiKeyPage } from './pages/ApiKeyPage';
 import { SettingsPage } from './pages/SettingsPage';
 import { HelpPage } from './pages/HelpPage';
 import { AboutPage } from './pages/AboutPage';
@@ -28,6 +29,7 @@ export function App() {
               <Route path="tools" element={<ToolsPage />} />
               <Route path="editor" element={<PdfEditorPage />} />
               <Route path="pipelines" element={<PipelinesPage />} />
+              <Route path="api-keys" element={<ApiKeyPage />} />
               <Route path="admin" element={<AdminDashboardPage />} />
               <Route path="settings" element={<SettingsPage />} />
               <Route path="help" element={<HelpPage />} />
