@@ -15,11 +15,14 @@ public class ConversionService {
     private final ConversionEngine conversionEngine;
     private final TempFileService tempFileService;
     private final AuditLogService auditLogService;
+    private final com.paperforge.security.ZipBombDetector zipBombDetector;
 
-    public ConversionService(ConversionEngine conversionEngine, TempFileService tempFileService, AuditLogService auditLogService) {
+    public ConversionService(ConversionEngine conversionEngine, TempFileService tempFileService,
+                             AuditLogService auditLogService, com.paperforge.security.ZipBombDetector zipBombDetector) {
         this.conversionEngine = conversionEngine;
         this.tempFileService = tempFileService;
         this.auditLogService = auditLogService;
+        this.zipBombDetector = zipBombDetector;
     }
 
     public byte[] convertToPdf(MultipartFile file, String clientIp) throws IOException, InterruptedException {
@@ -37,6 +40,10 @@ public class ConversionService {
         File tempOutput = null;
 
         try {
+            if ("zip".equalsIgnoreCase(ext) || "epub".equalsIgnoreCase(ext)) {
+                zipBombDetector.inspectZipStream(file.getInputStream(), file.getSize());
+            }
+
             tempInput = tempFileService.createTempFile("convert_in", "." + ext);
             file.transferTo(tempInput);
 

@@ -21,11 +21,14 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final ApiKeyAuthenticationFilter apiKeyAuthenticationFilter;
+    private final SecurityHeadersFilter securityHeadersFilter;
 
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
-                          ApiKeyAuthenticationFilter apiKeyAuthenticationFilter) {
+                          ApiKeyAuthenticationFilter apiKeyAuthenticationFilter,
+                          SecurityHeadersFilter securityHeadersFilter) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.apiKeyAuthenticationFilter = apiKeyAuthenticationFilter;
+        this.securityHeadersFilter = securityHeadersFilter;
     }
 
     @Bean
@@ -48,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/pdf/**").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(securityHeadersFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(apiKeyAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
