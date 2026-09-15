@@ -1,7 +1,9 @@
 import { Group, Title, ActionIcon, useMantineColorScheme, Badge, Button, Menu, Avatar, Text } from '@mantine/core';
 import { IconSun, IconMoon, IconFileTypePdf, IconUser, IconLogout, IconLogin } from '@tabler/icons-react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../../context/AuthContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface HeaderProps {
   healthStatus: string;
@@ -12,6 +14,7 @@ export function Header({ healthStatus }: HeaderProps) {
   const dark = colorScheme === 'dark';
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleLogout = () => {
     logout();
@@ -23,17 +26,19 @@ export function Header({ healthStatus }: HeaderProps) {
       <Group gap="xs">
         <IconFileTypePdf size={28} color="#228be6" />
         <Title order={3} style={{ fontFamily: 'sans-serif' }}>
-          PaperForge <TextSpan text="Document Studio" />
+          PaperForge <TextSpan text={t('app.title')} />
         </Title>
       </Group>
 
-      <Group gap="md">
+      <Group gap="sm">
+        <LanguageSwitcher />
+
         <Badge
           color={healthStatus === 'UP' ? 'green' : 'red'}
           variant="light"
           size="sm"
         >
-          API: {healthStatus}
+          API: {healthStatus === 'UP' ? t('common.systemOnline') : t('common.systemOffline')}
         </Badge>
 
         <ActionIcon

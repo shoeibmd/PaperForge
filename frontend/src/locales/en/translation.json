@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "PaperForge",
+    "subtitle": "Forge your documents with privacy & precision",
+    "footer": "PaperForge Document Studio — Forge your documents."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "tools": "Tools",
+    "editor": "PDF Editor",
+    "pipelines": "Pipeline Builder",
+    "apiKeys": "API Keys",
+    "admin": "Admin Studio",
+    "auditLogs": "Audit Logs",
+    "settings": "Settings",
+    "help": "Help & Docs",
+    "about": "About",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "actions": "Actions",
+    "search": "Search",
+    "filter": "Filter",
+    "status": "Status",
+    "success": "Success",
+    "failed": "Failed",
+    "active": "Active",
+    "revoked": "Revoked",
+    "systemOnline": "ONLINE",
+    "systemOffline": "OFFLINE"
+  },
+  "dashboard": {
+    "title": "Document Studio Dashboard",
+    "welcome": "Welcome back to PaperForge. Select a tool to begin forging your documents."
+  },
+  "auth": {
+    "loginTitle": "Sign In to PaperForge",
+    "registerTitle": "Create PaperForge Account",
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Sign In",
+    "registerButton": "Register Account"
+  },
+  "apiKeys": {
+    "title": "Programmatic API Keys",
+    "subtitle": "Manage secure API keys to integrate PaperForge features into external pipelines.",
+    "generate": "Generate New API Key",
+    "keyName": "Key Name / Description",
+    "scopes": "Scopes / Permissions",
+    "generateButton": "Generate Key",
+    "activeKeys": "Your Active & Historical API Keys"
+  },
+  "audit": {
+    "title": "Security Audit Logs",
+    "subtitle": "Administrator governance and tamper-evident event stream monitoring",
+    "exportCsv": "Export CSV Report"
+  }
+}

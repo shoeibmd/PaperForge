@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "PaperForge",
+    "subtitle": "Forgez vos documents avec confidentialité et précision",
+    "footer": "PaperForge Studio de Documents — Forgez vos documents."
+  },
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "tools": "Outils",
+    "editor": "Éditeur PDF",
+    "pipelines": "Générateur de pipelines",
+    "apiKeys": "Clés API",
+    "admin": "Studio Admin",
+    "auditLogs": "Journaux d'audit",
+    "settings": "Paramètres",
+    "help": "Aide & Docs",
+    "about": "À propos",
+    "logout": "Déconnexion",
+    "login": "Connexion"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "actions": "Actions",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "status": "Statut",
+    "success": "Succès",
+    "failed": "Échec",
+    "active": "Actif",
+    "revoked": "Révoqué",
+    "systemOnline": "EN LIGNE",
+    "systemOffline": "HORS LIGNE"
+  },
+  "dashboard": {
+    "title": "Tableau de bord du Studio de Documents",
+    "welcome": "Bienvenue sur PaperForge. Sélectionnez un outil pour commencer à forger vos documents."
+  },
+  "auth": {
+    "loginTitle": "Se connecter à PaperForge",
+    "registerTitle": "Créer un compte PaperForge",
+    "username": "Nom d'utilisateur",
+    "password": "Mot de passe",
+    "loginButton": "Se connecter",
+    "registerButton": "S'inscrire"
+  },
+  "apiKeys": {
+    "title": "Clés API programmatiques",
+    "subtitle": "Gérez les clés API sécurisées pour intégrer les fonctionnalités de PaperForge.",
+    "generate": "Générer une nouvelle clé API",
+    "keyName": "Nom de la clé / Description",
+    "scopes": "Portées / Permissions",
+    "generateButton": "Générer la clé",
+    "activeKeys": "Vos clés API actives et historiques"
+  },
+  "audit": {
+    "title": "Journaux d'audit de sécurité",
+    "subtitle": "Gouvernance administrateur et surveillance des événements",
+    "exportCsv": "Exporter le rapport CSV"
+  }
+}

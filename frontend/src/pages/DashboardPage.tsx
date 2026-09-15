@@ -1,8 +1,11 @@
 import { Title, Text, SimpleGrid, Card, Group, ThemeIcon, Button } from '@mantine/core';
 import { IconFiles, IconTransform, IconShieldCheck, IconCpu } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export function DashboardPage() {
+  const { t } = useTranslation();
+
   const stats = [
     { title: 'Core PDF Tools', icon: IconFiles, color: 'blue', desc: 'Merge, split, rotate, crop & compress' },
     { title: 'Conversion Engine', icon: IconTransform, color: 'teal', desc: 'Office, image, HTML & text conversions' },
@@ -13,10 +16,10 @@ export function DashboardPage() {
   return (
     <div>
       <Title order={2} mb="xs">
-        Dashboard
+        {t('dashboard.title')}
       </Title>
       <Text c="dimmed" mb="lg">
-        Welcome to PaperForge. Select a tool module below or navigate via the sidebar.
+        {t('dashboard.welcome')}
       </Text>
 
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md" mb="xl">

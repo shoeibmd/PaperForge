@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "PaperForge",
+    "subtitle": "Schmieden Sie Ihre Dokumente mit Datenschutz und Präzision",
+    "footer": "PaperForge Dokumenten-Studio — Schmieden Sie Ihre Dokumente."
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "tools": "Werkzeuge",
+    "editor": "PDF-Editor",
+    "pipelines": "Pipeline-Bauer",
+    "apiKeys": "API-Schlüssel",
+    "admin": "Admin-Studio",
+    "auditLogs": "Audit-Protokolle",
+    "settings": "Einstellungen",
+    "help": "Hilfe & Doku",
+    "about": "Über uns",
+    "logout": "Abmelden",
+    "login": "Anmelden"
+  },
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "actions": "Aktionen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "status": "Status",
+    "success": "Erfolgreich",
+    "failed": "Fehlgeschlagen",
+    "active": "Aktiv",
+    "revoked": "Widerrufen",
+    "systemOnline": "ONLINE",
+    "systemOffline": "OFFLINE"
+  },
+  "dashboard": {
+    "title": "Dokumenten-Studio Dashboard",
+    "welcome": "Willkommen zurück bei PaperForge. Wählen Sie ein Werkzeug, um mit der Bearbeitung zu beginnen."
+  },
+  "auth": {
+    "loginTitle": "Bei PaperForge anmelden",
+    "registerTitle": "PaperForge-Konto erstellen",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "loginButton": "Anmelden",
+    "registerButton": "Konto registrieren"
+  },
+  "apiKeys": {
+    "title": "Programmatische API-Schlüssel",
+    "subtitle": "Verwalten Sie sichere API-Schlüssel zur Integration von PaperForge-Funktionen.",
+    "generate": "Neuen API-Schlüssel erstellen",
+    "keyName": "Schlüsselname / Beschreibung",
+    "scopes": "Berechtigungen / Bereiche",
+    "generateButton": "Schlüssel erstellen",
+    "activeKeys": "Ihre aktiven & historischen API-Schlüssel"
+  },
+  "audit": {
+    "title": "Sicherheits-Audit-Protokolle",
+    "subtitle": "Administrator-Governance und Ereignisüberwachung",
+    "exportCsv": "CSV-Bericht exportieren"
+  }
+}

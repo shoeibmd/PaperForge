@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "PaperForge",
+    "subtitle": "اصنع مستنداتك بخصوصية ودقة",
+    "footer": "PaperForge استوديو المستندات — اصنع مستنداتك."
+  },
+  "nav": {
+    "dashboard": "لوحة التحكم",
+    "tools": "الأدوات",
+    "editor": "محرر PDF",
+    "pipelines": "منشئ خطوط المعالجة",
+    "apiKeys": "مفاتيح API",
+    "admin": "استوديو المسؤول",
+    "auditLogs": "سجلات التدقيق",
+    "settings": "الإعدادات",
+    "help": "المساعدة والتوثيق",
+    "about": "حول",
+    "logout": "تسجيل الخروج",
+    "login": "تسجيل الدخول"
+  },
+  "common": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "actions": "الإجراءات",
+    "search": "بحث",
+    "filter": "تصفية",
+    "status": "الحالة",
+    "success": "ناجح",
+    "failed": "فاشل",
+    "active": "نشط",
+    "revoked": "ملغى",
+    "systemOnline": "متصل",
+    "systemOffline": "غير متصل"
+  },
+  "dashboard": {
+    "title": "لوحة تحكم استوديو المستندات",
+    "welcome": "مرحبًا بك مجددًا في PaperForge. اختر أداة للبدء في معالجة مستنداتك."
+  },
+  "auth": {
+    "loginTitle": "تسجيل الدخول إلى PaperForge",
+    "registerTitle": "إنشاء حساب PaperForge",
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "loginButton": "تسجيل الدخول",
+    "registerButton": "تسجيل حساب جديد"
+  },
+  "apiKeys": {
+    "title": "مفاتيح API البرمجية",
+    "subtitle": "إدارة مفاتيح API الآمنة لدمج ميزات PaperForge في الأنظمة الخارجية.",
+    "generate": "إنشاء مفتاح API جديد",
+    "keyName": "اسم المفتاح / الوصف",
+    "scopes": "الصلاحيات / الأذونات",
+    "generateButton": "إنشاء المفتاح",
+    "activeKeys": "مفاتيح API النشطة والسابقة"
+  },
+  "audit": {
+    "title": "سجلات تدقيق الأمان",
+    "subtitle": "حكومة المسؤول ومراقبة أحداث الأمان",
+    "exportCsv": "تصدير تقرير CSV"
+  }
+}

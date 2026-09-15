@@ -1,0 +1,62 @@
+{
+  "app": {
+    "title": "PaperForge",
+    "subtitle": "ಗೌಪ്യത ಮತ್ತು ನಿಖರತೆಯೊಂದಿಗೆ ನಿಮ್ಮ ದಾಖಲೆಗಳನ್ನು ರೂಪಿಸಿ",
+    "footer": "PaperForge ಡಾಕ್ಯುಮೆಂಟ್ ಸ್ಟುಡಿಯೋ — ನಿಮ್ಮ ದಾಖಲೆಗಳನ್ನು ರೂಪಿಸಿ."
+  },
+  "nav": {
+    "dashboard": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "tools": "ಪರಿಕರಗಳು",
+    "editor": "PDF ಸಂಪಾದಕ",
+    "pipelines": "ಪೈಪ್‌ಲೈನ್ ಬಿಲ್ಡರ್",
+    "apiKeys": "API ಕೀಗಳು",
+    "admin": "ಅಡ್ಮಿನ್ ಸ್ಟುಡಿಯೋ",
+    "auditLogs": "ಆಡಿಟ್ ಲಾಗ್‌ಗಳು",
+    "settings": "ಸಂಯೋಜನೆಗಳು",
+    "help": "ಸಹಾಯ ಮತ್ತು ದಾಖಲೆಗಳು",
+    "about": "ಬಗ್ಗೆ",
+    "logout": "ಲಾಗ್ ಔಟ್",
+    "login": "ಲಾಗ್ ಇನ್"
+  },
+  "common": {
+    "save": "ಉಳಿಸಿ",
+    "cancel": "ರದ್ದುಗೊಳಿಸಿ",
+    "delete": "ಳಳಿಸಿ",
+    "actions": "ಕ್ರಿಯೆಗಳು",
+    "search": "ಹುಡುಕಿ",
+    "filter": "ಫಿಲ್ಟರ್",
+    "status": "ಸ್ಥಿತಿ",
+    "success": "ಯಶಸ್ವಿ",
+    "failed": "ವಿಫಲವಾಗಿದೆ",
+    "active": "ಸಕ್ರಿಯ",
+    "revoked": "ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ",
+    "systemOnline": "ಆನ್‌ಲೈನ್",
+    "systemOffline": "ಆಫ್‌ಲೈನ್"
+  },
+  "dashboard": {
+    "title": "ಡಾಕ್ಯುಮೆಂಟ್ ಸ್ಟುಡಿಯೋ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "welcome": "PaperForge ಗೆ ಮತ್ತೆ ಸುಸ್ವಾಗತ. ಪ್ರಾರಂಭಿಸಲು ಒಂದು ಪರಿಕರವನ್ನು ಆಯ್ಕೆಮಾಡಿ."
+  },
+  "auth": {
+    "loginTitle": "PaperForge ಗೆ ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "registerTitle": "PaperForge ಖಾತೆಯನ್ನು ರಚಿಸಿ",
+    "username": "ಬಳಕೆದಾರ ಹೆಸರು",
+    "password": "ಪಾಸ್‌ವರ್ಡ್",
+    "loginButton": "ಸೈನ್ ಇನ್ ಮಾಡಿ",
+    "registerButton": "ಖಾತೆ ನೋಂದಾಯಿಸಿ"
+  },
+  "apiKeys": {
+    "title": "ಪ್ರೋಗ್ರಾಮ್ಯಾಟಿಕ್ API ಕೀಗಳು",
+    "subtitle": "PaperForge ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಬಾಹ್ಯ ವ್ಯವಸ್ಥೆಗಳೊಂದಿಗೆ ಸಂಯೋಜಿಸಲು API ಕೀಗಳನ್ನು ನಿರ್ವಹಿಸಿ.",
+    "generate": "ಹೊಸ API ಕೀ ರಚಿಸಿ",
+    "keyName": "ಕೀ ಹೆಸರು / ವಿವರಣೆ",
+    "scopes": "ಅನುಮತಿಗಳು",
+    "generateButton": "ಕೀ ರಚಿಸಿ",
+    "activeKeys": "ನಿಮ್ಮ ಸಕ್ರಿಯ API ಕೀಗಳು"
+  },
+  "audit": {
+    "title": "ಭದ್ರತಾ ಆಡಿಟ್ ಲಾಗ್‌ಗಳು",
+    "subtitle": "ಆಡಳಿತಾತ್ಮಕ ಮೇಲ್ವಿಚಾರಣೆ ಮತ್ತು ಘಟನೆಗಳ ಮೇಲ್ವಿಚಾರಣೆ",
+    "exportCsv": "CSV ವರದಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ"
+  }
+}
