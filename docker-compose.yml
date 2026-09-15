@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  paperforge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paperforge-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PAPERFORGE_DEFAULT_USER_QUOTA_BYTES=524288000
+      - PAPERFORGE_MAX_CONCURRENT_JOBS=10
+      - PAPERFORGE_JOB_TIMEOUT_SECONDS=120
+      - PAPERFORGE_AUDIT_LOG_RETENTION_DAYS=90
+    volumes:
+      - paperforge-storage:/app/storage
+      - paperforge-logs:/app/logs
+
+volumes:
+  paperforge-storage:
+    driver: local
+  paperforge-logs:
+    driver: local

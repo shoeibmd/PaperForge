@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  paperforge-security:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: paperforge-security-app
+    restart: unless-stopped
+    read_only: true
+    user: "10001:10001"
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8080:8080"
+    environment:
+      - PAPERFORGE_DEFAULT_USER_QUOTA_BYTES=524288000
+      - PAPERFORGE_MAX_CONCURRENT_JOBS=5
+      - PAPERFORGE_JOB_TIMEOUT_SECONDS=90
+      - PAPERFORGE_AUDIT_LOG_RETENTION_DAYS=180
+    tmpfs:
+      - /tmp:exec,mode=1777,size=256M
+      - /app/temp:exec,mode=0700,uid=10001,gid=10001,size=512M
+    volumes:
+      - paperforge-sec-storage:/app/storage
+      - paperforge-sec-logs:/app/logs
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+volumes:
+  paperforge-sec-storage:
+    driver: local
+  paperforge-sec-logs:
+    driver: local

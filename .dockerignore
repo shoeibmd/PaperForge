@@ -1,0 +1,28 @@
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+.DS_Store
+
+# Node / Frontend artifacts
+frontend/node_modules
+frontend/dist
+frontend/.vite
+frontend/*.log
+
+# Java / Maven artifacts
+backend/target
+backend/.mvn
+backend/mvnw
+backend/mvnw.cmd
+*.class
+*.jar
+
+# Temporary runtime files
+temp/
+storage/
+logs/
+*.tmp
+*.log
+.env

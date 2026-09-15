@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  paperforge-full:
+    build:
+      context: .
+      dockerfile: Dockerfile.full
+    container_name: paperforge-full-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - PAPERFORGE_DEFAULT_USER_QUOTA_BYTES=1073741824
+      - PAPERFORGE_MAX_CONCURRENT_JOBS=20
+      - PAPERFORGE_JOB_TIMEOUT_SECONDS=180
+      - PAPERFORGE_AUDIT_LOG_RETENTION_DAYS=90
+      - PAPERFORGE_ZIP_MAX_RATIO=100.0
+      - PAPERFORGE_ZIP_MAX_SIZE_BYTES=262144000
+    volumes:
+      - paperforge-full-storage:/app/storage
+      - paperforge-full-logs:/app/logs
+
+volumes:
+  paperforge-full-storage:
+    driver: local
+  paperforge-full-logs:
+    driver: local
