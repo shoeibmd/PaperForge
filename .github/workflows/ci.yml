@@ -33,6 +33,9 @@ jobs:
       - name: Run TypeScript typecheck
         run: npm run typecheck
 
+      - name: Run Vitest component tests
+        run: npm run test
+
       - name: Build frontend static assets
         run: npm run build
 
