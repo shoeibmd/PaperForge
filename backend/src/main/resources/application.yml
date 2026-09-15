@@ -18,6 +18,8 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: false
+  flyway:
+    enabled: false
 
 paperforge:
   default-user-quota-bytes: ${PAPERFORGE_DEFAULT_USER_QUOTA_BYTES:524288000} # Default 500 MB per user

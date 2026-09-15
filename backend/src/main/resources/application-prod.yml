@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${PAPERFORGE_DB_URL:jdbc:postgresql://localhost:5432/paperforge}
+    username: ${PAPERFORGE_DB_USER:paperforge}
+    password: ${PAPERFORGE_DB_PASSWORD:paperforge_secure_password}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: ${PAPERFORGE_DB_MAX_POOL_SIZE:20}
+      minimum-idle: ${PAPERFORGE_DB_MIN_IDLE:5}
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1200000
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-version: 1
+    locations: classpath:db/migration
