@@ -17,6 +17,11 @@ services:
     volumes:
       - paperforge-storage:/app/storage
       - paperforge-logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 volumes:
   paperforge-storage:

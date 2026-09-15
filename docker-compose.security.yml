@@ -13,6 +13,7 @@ services:
       - ALL
     security_opt:
       - no-new-privileges:true
+    pids_limit: 512
     ports:
       - "8080:8080"
     environment:
@@ -26,6 +27,11 @@ services:
     volumes:
       - paperforge-sec-storage:/app/storage
       - paperforge-sec-logs:/app/logs
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     deploy:
       resources:
         limits:
