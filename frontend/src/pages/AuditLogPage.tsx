@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Title,
   Text,
@@ -15,6 +15,7 @@ import {
   Modal,
   Stack
 } from '@mantine/core';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { IconDownload, IconSearch, IconAlertCircle, IconFilter } from '@tabler/icons-react';
 import { auditLogApi, AuditLogDto } from '../services/auditLogApi';
 import { useAuth } from '../context/AuthContext';
@@ -54,6 +55,8 @@ export function AuditLogPage() {
   const [error, setError] = useState<string | null>(null);
   const { token } = useAuth();
 
+  const tableContainerRef = useRef<HTMLDivElement>(null);
+
   const fetchLogs = async (targetPage: number) => {
     if (!token) return;
     try {
@@ -63,7 +66,7 @@ export function AuditLogPage() {
           username: username.trim() || undefined,
           query: query.trim() || undefined,
           page: targetPage - 1,
-          size: 15,
+          size: 20,
         },
         token
       );
@@ -78,6 +81,13 @@ export function AuditLogPage() {
   useEffect(() => {
     fetchLogs(page);
   }, [page, token]);
+
+  const rowVirtualizer = useVirtualizer({
+    count: logs.length,
+    getScrollElement: () => tableContainerRef.current,
+    estimateSize: () => 48,
+    overscan: 5,
+  });
 
   const handleApplyFilter = () => {
     setPage(1);
@@ -152,52 +162,57 @@ export function AuditLogPage() {
         </Group>
       </Card>
 
-      <Table striped highlightOnHover>
-        <Table.Thead>
-          <Table.Tr>
-            <Table.Th>Timestamp</Table.Th>
-            <Table.Th>Event Type</Table.Th>
-            <Table.Th>User</Table.Th>
-            <Table.Th>Client IP</Table.Th>
-            <Table.Th>Resource ID</Table.Th>
-            <Table.Th>Status</Table.Th>
-            <Table.Th style={{ textAlign: 'right' }}>Details</Table.Th>
-          </Table.Tr>
-        </Table.Thead>
-        <Table.Tbody>
-          {logs.length === 0 ? (
+      <div ref={tableContainerRef} style={{ maxHeight: '600px', overflowY: 'auto' }}>
+        <Table striped highlightOnHover>
+          <Table.Thead style={{ position: 'sticky', top: 0, backgroundColor: 'var(--mantine-color-body)', zIndex: 1 }}>
             <Table.Tr>
-              <Table.Td colSpan={7} style={{ textAlign: 'center' }}>
-                No audit log entries found.
-              </Table.Td>
+              <Table.Th>Timestamp</Table.Th>
+              <Table.Th>Event Type</Table.Th>
+              <Table.Th>User</Table.Th>
+              <Table.Th>Client IP</Table.Th>
+              <Table.Th>Resource ID</Table.Th>
+              <Table.Th>Status</Table.Th>
+              <Table.Th style={{ textAlign: 'right' }}>Details</Table.Th>
             </Table.Tr>
-          ) : (
-            logs.map((log) => (
-              <Table.Tr key={log.id}>
-                <Table.Td>{new Date(log.timestamp).toLocaleString()}</Table.Td>
-                <Table.Td>
-                  <Badge color={log.eventType.includes('FAIL') || log.eventType.includes('REVOKED') ? 'red' : 'blue'} variant="light">
-                    {log.eventType}
-                  </Badge>
-                </Table.Td>
-                <Table.Td fw={600}>{log.username || 'ANONYMOUS'}</Table.Td>
-                <Table.Td>{log.clientIp}</Table.Td>
-                <Table.Td>{log.resourceId || '—'}</Table.Td>
-                <Table.Td>
-                  <Badge color={log.success ? 'green' : 'red'}>
-                    {log.success ? 'SUCCESS' : 'FAILED'}
-                  </Badge>
-                </Table.Td>
-                <Table.Td style={{ textAlign: 'right' }}>
-                  <Button variant="subtle" size="xs" onClick={() => setSelectedLog(log)}>
-                    View JSON
-                  </Button>
+          </Table.Thead>
+          <Table.Tbody>
+            {logs.length === 0 ? (
+              <Table.Tr>
+                <Table.Td colSpan={7} style={{ textAlign: 'center' }}>
+                  No audit log entries found.
                 </Table.Td>
               </Table.Tr>
-            ))
-          )}
-        </Table.Tbody>
-      </Table>
+            ) : (
+              rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const log = logs[virtualRow.index];
+                return (
+                  <Table.Tr key={log.id} style={{ height: `${virtualRow.size}px` }}>
+                    <Table.Td>{new Date(log.timestamp).toLocaleString()}</Table.Td>
+                    <Table.Td>
+                      <Badge color={log.eventType.includes('FAIL') || log.eventType.includes('REVOKED') ? 'red' : 'blue'} variant="light">
+                        {log.eventType}
+                      </Badge>
+                    </Table.Td>
+                    <Table.Td fw={600}>{log.username || 'ANONYMOUS'}</Table.Td>
+                    <Table.Td>{log.clientIp}</Table.Td>
+                    <Table.Td>{log.resourceId || '—'}</Table.Td>
+                    <Table.Td>
+                      <Badge color={log.success ? 'green' : 'red'}>
+                        {log.success ? 'SUCCESS' : 'FAILED'}
+                      </Badge>
+                    </Table.Td>
+                    <Table.Td style={{ textAlign: 'right' }}>
+                      <Button variant="subtle" size="xs" onClick={() => setSelectedLog(log)}>
+                        View JSON
+                      </Button>
+                    </Table.Td>
+                  </Table.Tr>
+                );
+              })
+            )}
+          </Table.Tbody>
+        </Table>
+      </div>
 
       {totalPages > 1 && (
         <Group justify="center" mt="xl">
