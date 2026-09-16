@@ -49,6 +49,6 @@ class AuthControllerTest {
     @Test
     void testProtectedPdfEndpointRequiresAuthentication() throws Exception {
         mockMvc.perform(get("/api/v1/pdf/core/info"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 }

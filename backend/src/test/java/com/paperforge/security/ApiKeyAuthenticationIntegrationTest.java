@@ -65,6 +65,6 @@ class ApiKeyAuthenticationIntegrationTest {
     void authenticateWithInvalidApiKeyHeader_Unauthorized() throws Exception {
         mockMvc.perform(get("/api/v1/pipelines")
                         .header("X-API-Key", "pf_live_invalidkey1234567890123456"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 }
