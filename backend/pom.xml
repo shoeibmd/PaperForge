@@ -19,7 +19,7 @@
 
     <properties>
         <java.version>21</java.version>
-        <pdfbox.version>3.0.3</pdfbox.version>
+        <pdfbox.version>3.0.8</pdfbox.version>
         <bucket4j.version>8.10.1</bucket4j.version>
         <twelvemonkeys.version>3.11.0</twelvemonkeys.version>
     </properties>
