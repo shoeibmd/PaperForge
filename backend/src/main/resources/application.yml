@@ -21,6 +21,17 @@ spring:
   flyway:
     enabled: false
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
+
 paperforge:
   default-user-quota-bytes: ${PAPERFORGE_DEFAULT_USER_QUOTA_BYTES:524288000} # Default 500 MB per user
   max-concurrent-jobs: ${PAPERFORGE_MAX_CONCURRENT_JOBS:10}

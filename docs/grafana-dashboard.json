@@ -1,0 +1,79 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "title": "PaperForge PDF Processing Duration (P95 / P99)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(paperforge_pdf_process_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95 duration"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(paperforge_pdf_process_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p99 duration"
+        }
+      ]
+    },
+    {
+      "title": "Security Events & Failed Auth Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "rate(paperforge_security_events_total[5m])",
+          "legendFormat": "Security Audit Events"
+        },
+        {
+          "expr": "rate(paperforge_failed_auth_total[5m])",
+          "legendFormat": "Failed Auth Rate"
+        }
+      ]
+    },
+    {
+      "title": "JVM Heap Memory Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "jvm_memory_used_bytes{area=\"heap\"}",
+          "legendFormat": "Used Heap"
+        },
+        {
+          "expr": "jvm_memory_max_bytes{area=\"heap\"}",
+          "legendFormat": "Max Heap"
+        }
+      ]
+    },
+    {
+      "title": "JVM Garbage Collection Pause Time",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        {
+          "expr": "rate(jvm_gc_pause_seconds_sum[5m])",
+          "legendFormat": "GC Pause Rate"
+        }
+      ]
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["paperforge", "monitoring"],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "title": "PaperForge Document Studio Operational Dashboard",
+  "uid": "paperforge-metrics-dashboard"
+}
