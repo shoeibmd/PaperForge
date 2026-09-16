@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@mantine/core": "^7.12.2",
-    "@mantine/hooks": "^7.12.2",
+    "@mantine/hooks": "^9.6.1",
     "@tabler/icons-react": "^3.14.0",
     "@tanstack/react-virtual": "^3.14.13",
     "i18next": "^26.4.2",
