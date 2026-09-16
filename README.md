@@ -3,7 +3,7 @@
 [![Build Status](https://github.com/paperforge/paperforge/actions/workflows/ci.yml/badge.svg)](https://github.com/paperforge/paperforge/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Forge your documents.**
+**Forge your documents with privacy and precision.**
 
 PaperForge is an open-source, self-hosted PDF and document processing platform. It provides a secure, modern, and privacy-first web interface, native cross-platform desktop application, and REST API for manipulating, converting, OCRing, editing, and managing documents without artificial user limits or external vendor lock-in.
 
@@ -33,66 +33,40 @@ PaperForge is an open-source, self-hosted PDF and document processing platform. 
 
 ---
 
-## 🚀 Deployment & Local Running
+## 📖 Comprehensive Documentation Index
 
-### Option 1: Running with Docker Compose (Recommended for Web)
+### 👤 User Guides (`docs/user-guide/`)
+- [Quick Start Guide](docs/user-guide/quick-start.md)
+- [PDF Core Operations](docs/user-guide/pdf-core.md)
+- [PDF Security & Encryption](docs/user-guide/security.md)
+- [Document Conversion](docs/user-guide/conversion.md)
+- [OCR Processing](docs/user-guide/ocr.md)
+- [PDF Compression](docs/user-guide/compression.md)
+- [Interactive PDF Editor](docs/user-guide/editor.md)
+- [Frequently Asked Questions (FAQ)](docs/user-guide/faq.md)
 
-#### Standard Monolithic Deployment
+### 🛠️ Administrator Guides (`docs/admin-guide/`)
+- [Production Deployment](docs/admin-guide/deployment.md)
+- [Environment Configuration Reference](docs/admin-guide/configuration.md)
+- [Production Security Hardening](docs/admin-guide/security-hardening.md)
+- [Monitoring & Grafana Setup](docs/admin-guide/monitoring.md)
+- [Backup & Disaster Recovery](docs/admin-guide/backup-recovery.md)
+
+### 💻 Developer Guides (`docs/developer-guide/`)
+- [System Architecture & Sequence Diagrams](docs/developer-guide/architecture.md)
+- [Local Developer Setup](docs/developer-guide/setup.md)
+- [Contributing Guidelines](docs/developer-guide/contributing.md)
+
+---
+
+## ⚡ 3-Command Quick Start
+
 ```bash
+git clone https://github.com/paperforge/paperforge.git
+cd paperforge
 docker compose up -d
 ```
-
-#### Full-Feature Deployment (LibreOffice + Tesseract OCR + QPDF)
-```bash
-docker compose -f docker-compose.full.yml up -d
-```
-
-#### Hardened Read-Only Security Deployment
-```bash
-docker compose -f docker-compose.security.yml up -d
-```
-Access the web UI at `http://localhost:8080`.
-
----
-
-### Option 2: Running Native Desktop App (Tauri + Rust)
-
-#### Build Prerequisites
-- Java 21 LTS
-- Rust 1.75+
-- Node.js 22+
-
-#### Build and Run Desktop App
-```bash
-# 1. Build backend JAR
-cd backend && mvn clean package -DskipTests
-
-# 2. Build frontend static assets
-cd ../frontend && npm install && npm run build
-
-# 3. Launch Tauri Desktop App
-cd ../desktop && npm run dev
-```
-
----
-
-### Option 3: Bare-Metal Development Setup
-
-#### 1. Backend Service
-```bash
-cd backend
-mvn clean install
-mvn spring-boot:run
-```
-Backend API starts at `http://localhost:8080`. Interactive OpenAPI Swagger UI is available at `http://localhost:8080/swagger-ui/index.html`.
-
-#### 2. Frontend Web App
-```bash
-cd frontend
-npm install
-npm run dev
-```
-Frontend Vite server starts at `http://localhost:5173`.
+Access the PaperForge web studio at `http://localhost:8080`.
 
 ---
 
@@ -102,5 +76,3 @@ Frontend Vite server starts at `http://localhost:5173`.
 - **Security Policy:** [SECURITY.md](SECURITY.md)
 - **Contributing Guidelines:** [CONTRIBUTING.md](CONTRIBUTING.md)
 - **Code of Conduct:** [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
-- **Container Security:** [docker/SECURITY.md](docker/SECURITY.md)
-- **Environment Variables:** [docker/ENVIRONMENT.md](docker/ENVIRONMENT.md)
